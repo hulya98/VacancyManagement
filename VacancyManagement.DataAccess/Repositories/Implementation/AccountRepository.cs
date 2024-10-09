@@ -8,7 +8,7 @@ using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.DataAccess.Repositories.Implementation
 {
-    public class AccountRepository : Repository<AppUser>
+    public class AccountRepository : Repository<User>
     {
         public AccountRepository(Context context) : base(context)
         {

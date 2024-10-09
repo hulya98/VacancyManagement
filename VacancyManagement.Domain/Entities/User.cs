@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace VacancyManagement.Domain.Entities
 {
-    public class AppUser : IdentityUser<Guid>
+    public class User:BaseEntity
     {
+        public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string FullName => string.Join(" ", FirstName, LastName);
+        public string? Password { get; set; }
 
     }
 }

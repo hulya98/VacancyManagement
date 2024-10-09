@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyManagement.Web", "VacancyManagement.Web\VacancyManagement.Web.csproj", "{86736E10-2072-4833-BE62-D68D9FC4FFB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyManagement.DataAccess", "VacancyManagement.DataAccess\VacancyManagement.DataAccess.csproj", "{128A0AD8-CC63-411F-9071-BF2EE1F744F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyManagement.DataAccess", "VacancyManagement.DataAccess\VacancyManagement.DataAccess.csproj", "{128A0AD8-CC63-411F-9071-BF2EE1F744F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyManagement.Domain", "VacancyManagement.Domain\VacancyManagement.Domain.csproj", "{B030B8C8-30A0-4CC1-841B-5242EF7A4187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyManagement.Domain", "VacancyManagement.Domain\VacancyManagement.Domain.csproj", "{B030B8C8-30A0-4CC1-841B-5242EF7A4187}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyManagement.API", "VacancyManagement.API\VacancyManagement.API.csproj", "{C48940BD-7240-4B26-BD07-54645D6EA44E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86736E10-2072-4833-BE62-D68D9FC4FFB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86736E10-2072-4833-BE62-D68D9FC4FFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86736E10-2072-4833-BE62-D68D9FC4FFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86736E10-2072-4833-BE62-D68D9FC4FFB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{128A0AD8-CC63-411F-9071-BF2EE1F744F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{128A0AD8-CC63-411F-9071-BF2EE1F744F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{128A0AD8-CC63-411F-9071-BF2EE1F744F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{B030B8C8-30A0-4CC1-841B-5242EF7A4187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B030B8C8-30A0-4CC1-841B-5242EF7A4187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B030B8C8-30A0-4CC1-841B-5242EF7A4187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C48940BD-7240-4B26-BD07-54645D6EA44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48940BD-7240-4B26-BD07-54645D6EA44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48940BD-7240-4B26-BD07-54645D6EA44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48940BD-7240-4B26-BD07-54645D6EA44E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace VacancyManagement.Domain.Entities
 {
-    public sealed class AppUserRole : IdentityUserRole<Guid>
+    public sealed class Role : BaseEntity
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

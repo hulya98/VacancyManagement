@@ -1,0 +1,6 @@
+@VacancyManagement.API_HostAddress = http://localhost:5121
+
+GET {{VacancyManagement.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
