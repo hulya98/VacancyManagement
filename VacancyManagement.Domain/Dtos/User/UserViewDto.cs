@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
-namespace VacancyManagement.Domain.Entities
+namespace VacancyManagement.Domain.Dtos.User
 {
-	public class User : BaseEntity
+	public class UserViewDto
 	{
 		public int Id { get; set; }
 		public string FirstName { get; set; } = string.Empty;
@@ -16,8 +15,5 @@ namespace VacancyManagement.Domain.Entities
 		public string? Password { get; set; }
 		public string Email { get; set; }
 		public string PhoneNumber { get; set; }
-		public byte[]? CV { get; set; }
-		public string? CVName { get; set; }
-		public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 	}
 }

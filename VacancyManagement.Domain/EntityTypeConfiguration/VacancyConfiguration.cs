@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VacancyManagement.Domain.Entities;
-using System.Reflection.Emit;
 
 namespace VacancyManagement.Domain.EntityTypeConfiguration
 {
-	internal class UserConfiguration : IEntityTypeConfiguration<User>
+	public class VacancyConfiguration : IEntityTypeConfiguration<Vacancy>
 	{
-		public void Configure(EntityTypeBuilder<User> builder)
+		public void Configure(EntityTypeBuilder<Vacancy> builder)
 		{
 			builder.HasData(
-						   new User { Id = 1, FirstName = "Admin", LastName = "Admin", Password = "123", Email = "qeriblih@gmail.com", PhoneNumber = "+994 51 359 86 44" }
+							new Vacancy { Id = 1, Name = "BACK-END DEVELOPER", IsActive = true },
+							new Vacancy { Id = 2, Name = "İstedadların idarəolunması və inkişaf üzrə mütəxəssis", IsActive = true }
 			);
 		}
 	}

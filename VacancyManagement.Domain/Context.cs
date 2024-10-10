@@ -14,59 +14,70 @@ using Microsoft.AspNetCore.Http;
 
 namespace VacancyManagement.Domain
 {
-    public sealed class Context : DbContext
-    {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public Context()
-        {
+	public sealed class Context : DbContext
+	{
+		private readonly IHttpContextAccessor _httpContextAccessor;
+		public Context()
+		{
 
-        }
-        public Context(DbContextOptions<Context> options, IHttpContextAccessor httpContextAccessor)
-        : base(options)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
+		}
+		public Context(DbContextOptions<Context> options, IHttpContextAccessor httpContextAccessor)
+		: base(options)
+		{
+			_httpContextAccessor = httpContextAccessor;
+		}
 
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<VacancyRequirement> VacancyRequirements { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizAnswer> QuizAnswers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+		{
+			modelBuilder.ApplyConfiguration(new UserConfiguration());
+			modelBuilder.ApplyConfiguration(new RoleConfiguration());
+			modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+			modelBuilder.ApplyConfiguration(new VacancyConfiguration());
+			modelBuilder.ApplyConfiguration(new VacancyRequirementConfiguration());
+
+			modelBuilder.ApplyConfiguration(new QuizConfiguration());
+			modelBuilder.ApplyConfiguration(new QuizAnswerConfiguration());
 
 
-            base.OnModelCreating(modelBuilder);
-        }
+			base.OnModelCreating(modelBuilder);
+		}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
-            //var migrationsConnectionString = @"Server=localhost;Database=ERP;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			//var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
+			var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
 
-            optionsBuilder.UseSqlServer(migrationsConnectionString);
+			optionsBuilder.UseSqlServer(migrationsConnectionString);
 
-        }
+		}
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            var datas = ChangeTracker.Entries<BaseEntity>();
-            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+		{
+			var datas = ChangeTracker.Entries<BaseEntity>();
+			var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            foreach (var data in datas)
-            {
-                switch (data.State)
-                {
-                    case EntityState.Added:
-                        data.Entity.CreatedDate = DateTime.UtcNow;
-                        data.Entity.CreatedBy = userId;
-                        break;
-                    case EntityState.Modified:
-                        data.Entity.ModifiedDate = DateTime.UtcNow;
-                        data.Entity.ModifiedBy = userId;
-                        break;
-                };
-            }
-            return await base.SaveChangesAsync(cancellationToken);
-        }
-    }
+			foreach (var data in datas)
+			{
+				switch (data.State)
+				{
+					case EntityState.Added:
+						data.Entity.CreatedDate = DateTime.UtcNow;
+						data.Entity.CreatedBy = userId;
+						break;
+					case EntityState.Modified:
+						data.Entity.ModifiedDate = DateTime.UtcNow;
+						data.Entity.ModifiedBy = userId;
+						break;
+				};
+			}
+			return await base.SaveChangesAsync(cancellationToken);
+		}
+	}
 }
