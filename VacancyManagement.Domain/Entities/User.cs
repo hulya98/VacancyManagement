@@ -19,5 +19,6 @@ namespace VacancyManagement.Domain.Entities
 		public byte[]? CV { get; set; }
 		public string? CVName { get; set; }
 		public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+		public ICollection<UserVacancy> UserVacancies { get; set; } = new List<UserVacancy>();
 	}
 }

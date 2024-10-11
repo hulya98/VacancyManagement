@@ -12,5 +12,6 @@ namespace VacancyManagement.Domain.Entities
 		public string Name { get; set; }
 		public bool IsActive { get; set; }
 		public ICollection<VacancyRequirement> VacancyRequirements { get; set; }
+		public ICollection<UserVacancy> UserVacancies { get; set; }
 	}
 }

@@ -16,7 +16,6 @@ namespace VacancyManagement.Domain.Mappers
 		public MapProfile()
 		{
 			CreateMap<User, UserRequest>().ReverseMap();
-			CreateMap<UserVacancy, UserVacancyDto>().ReverseMap();
 			CreateMap<UserViewDto, User>().ReverseMap();
 		}
 	}

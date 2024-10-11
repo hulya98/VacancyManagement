@@ -27,17 +27,19 @@ namespace VacancyManagement.Domain
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Vacancy> Vacancies { get; set; }
-        public DbSet<VacancyRequirement> VacancyRequirements { get; set; }
-        public DbSet<Quiz> Quizzes { get; set; }
-        public DbSet<QuizAnswer> QuizAnswers { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		public DbSet<User> Users { get; set; }
+		public DbSet<Role> Roles { get; set; }
+		public DbSet<UserVacancy> UserVacancies { get; set; }
+		public DbSet<Vacancy> Vacancies { get; set; }
+		public DbSet<VacancyRequirement> VacancyRequirements { get; set; }
+		public DbSet<Quiz> Quizzes { get; set; }
+		public DbSet<QuizAnswer> QuizAnswers { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfiguration(new UserConfiguration());
 			modelBuilder.ApplyConfiguration(new RoleConfiguration());
 			modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+			modelBuilder.ApplyConfiguration(new UserVacancyConfiguration());
 
 			modelBuilder.ApplyConfiguration(new VacancyConfiguration());
 			modelBuilder.ApplyConfiguration(new VacancyRequirementConfiguration());

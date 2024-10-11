@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using VacancyManagement.API.Extensions;
 using VacancyManagement.Domain;
+using VacancyManagement.Domain.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.AddServiceExtensions();
 builder.AddRepositoryExtensions();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

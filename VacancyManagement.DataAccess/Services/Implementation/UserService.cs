@@ -8,6 +8,7 @@ using VacancyManagement.DataAccess.Repositories.Abstract;
 using VacancyManagement.DataAccess.Services.Abstract;
 using VacancyManagement.DataAccess.UnitOfWork;
 using VacancyManagement.Domain.Dtos.User;
+using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.DataAccess.Services.Implementation
@@ -17,7 +18,7 @@ namespace VacancyManagement.DataAccess.Services.Implementation
 		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
 		private readonly IUnitOfWork _unitOfWork;
-
+		private readonly IUserVacancyService _userVacancyService;
 		public UserService(IUserRepository userRepository,
 						   IUnitOfWork unitOfWork,
 						   IMapper mapper)
@@ -31,7 +32,8 @@ namespace VacancyManagement.DataAccess.Services.Implementation
 		{
 			var map = _mapper.Map<User>(request);
 			var user = await _userRepository.Add(map);
-			var userVacancy
+			var userVacancy = new UserVacancyRequest { UserId = user.Id, VacancyId = request.VacancyId };
+			await _userVacancyService.Add(userVacancy);
 			await _unitOfWork.CommitAsync();
 			return _mapper.Map<UserViewDto>(user);
 		}
