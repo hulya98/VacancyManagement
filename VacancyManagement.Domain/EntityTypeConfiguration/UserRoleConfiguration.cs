@@ -24,7 +24,7 @@ namespace VacancyManagement.Domain.EntityTypeConfiguration
 					.HasForeignKey(ur => ur.RoleId)
 					.OnDelete(DeleteBehavior.Cascade); // Cascade delete if needed
 
-			builder.HasKey(x => new { x.RoleId, x.UserId });
+			builder.HasKey(x => new { x.Id });
             builder.HasData(new UserRole { Id = 1, RoleId = 1, UserId = 1 });
 
         }

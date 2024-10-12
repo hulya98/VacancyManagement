@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VacancyManagement.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class entity_added : Migration
+    public partial class config_added : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,10 +20,7 @@ namespace VacancyManagement.Domain.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,10 +40,7 @@ namespace VacancyManagement.Domain.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CV = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CVName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,28 +62,26 @@ namespace VacancyManagement.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "UserRoles",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.RoleId, x.UserId });
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRole_Roles_RoleId",
+                        name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_Users_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -110,6 +102,32 @@ namespace VacancyManagement.Domain.Migrations
                     table.PrimaryKey("PK_Quizzes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Quizzes_Vacancies_VacancyId",
+                        column: x => x.VacancyId,
+                        principalTable: "Vacancies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserVacancies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    VacancyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserVacancies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserVacancies_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserVacancies_Vacancies_VacancyId",
                         column: x => x.VacancyId,
                         principalTable: "Vacancies",
                         principalColumn: "Id",
@@ -160,17 +178,17 @@ namespace VacancyManagement.Domain.Migrations
 
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "ModifiedBy", "ModifiedDate", "Name" },
+                columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, null, "Admin" },
-                    { 2, null, null, null, null, "Guest" }
+                    { 1, null, "Admin" },
+                    { 2, null, "Guest" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CV", "CVName", "CreatedBy", "CreatedDate", "Email", "FirstName", "LastName", "ModifiedBy", "ModifiedDate", "Password", "PhoneNumber" },
-                values: new object[] { 1, null, null, null, null, "qeriblih@gmail.com", "Admin", "Admin", null, null, "123", "+994 51 359 86 44" });
+                columns: new[] { "Id", "CV", "CVName", "CreatedDate", "Email", "FirstName", "LastName", "Password", "PhoneNumber" },
+                values: new object[] { 1, null, null, null, "qeriblih@gmail.com", "Admin", "Admin", "123", "+994 51 359 86 44" });
 
             migrationBuilder.InsertData(
                 table: "Vacancies",
@@ -195,9 +213,9 @@ namespace VacancyManagement.Domain.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "UserRole",
-                columns: new[] { "RoleId", "UserId", "CreatedBy", "CreatedDate", "Id", "ModifiedBy", "ModifiedDate" },
-                values: new object[] { 1, 1, null, null, 1, null, null });
+                table: "UserRoles",
+                columns: new[] { "Id", "CreatedDate", "RoleId", "UserId" },
+                values: new object[] { 1, null, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "VacancyRequirements",
@@ -252,9 +270,24 @@ namespace VacancyManagement.Domain.Migrations
                 column: "VacancyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UserId",
-                table: "UserRole",
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserId",
+                table: "UserRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserVacancies_UserId",
+                table: "UserVacancies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserVacancies_VacancyId",
+                table: "UserVacancies",
+                column: "VacancyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VacancyRequirements_VacancyId",
@@ -269,7 +302,10 @@ namespace VacancyManagement.Domain.Migrations
                 name: "QuizAnswers");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "UserVacancies");
 
             migrationBuilder.DropTable(
                 name: "VacancyRequirements");

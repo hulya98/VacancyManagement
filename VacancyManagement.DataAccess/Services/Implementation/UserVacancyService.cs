@@ -21,7 +21,9 @@ namespace VacancyManagement.DataAccess.Services.Implementation
 								  IMapper mapper,
 								  IUnitOfWork unitOfWork)
 		{
-
+			_mapper = mapper;
+			_unitOfWork = unitOfWork;
+			_userVacancyRepository = userVacancyRepository;
 		}
 
 		public async Task<UserVacancyViewDto> Add(UserVacancyRequest request)

@@ -4,11 +4,12 @@ using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.API.Extensions
 {
-	public static class ServiceExtensions
-	{
-		public static void AddServiceExtensions(this WebApplicationBuilder builder)
-		{
-			builder.Services.AddScoped<IUserService, UserService>();
-		}
-	}
+    public static class ServiceExtensions
+    {
+        public static void AddServiceExtensions(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserVacancyService, UserVacancyService>();
+        }
+    }
 }

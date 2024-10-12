@@ -1,14 +1,14 @@
-using Microsoft.Extensions.Configuration;
-using VacancyManagement.Domain;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using VacancyManagement.Web.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<Context>(options =>
-          options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddHttpClient<ApiClient>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7119/"); // Set your API base URL here
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

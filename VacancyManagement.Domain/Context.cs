@@ -29,6 +29,7 @@ namespace VacancyManagement.Domain
 
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
+		public DbSet<UserRole> UserRoles { get; set; }
 		public DbSet<UserVacancy> UserVacancies { get; set; }
 		public DbSet<Vacancy> Vacancies { get; set; }
 		public DbSet<VacancyRequirement> VacancyRequirements { get; set; }
@@ -53,8 +54,8 @@ namespace VacancyManagement.Domain
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			//var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
-			var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
+			var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
+			//var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
 
 			optionsBuilder.UseSqlServer(migrationsConnectionString);
 
@@ -63,7 +64,6 @@ namespace VacancyManagement.Domain
 		public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 		{
 			var datas = ChangeTracker.Entries<BaseEntity>();
-			var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			foreach (var data in datas)
 			{
@@ -71,11 +71,6 @@ namespace VacancyManagement.Domain
 				{
 					case EntityState.Added:
 						data.Entity.CreatedDate = DateTime.UtcNow;
-						data.Entity.CreatedBy = userId;
-						break;
-					case EntityState.Modified:
-						data.Entity.ModifiedDate = DateTime.UtcNow;
-						data.Entity.ModifiedBy = userId;
 						break;
 				};
 			}

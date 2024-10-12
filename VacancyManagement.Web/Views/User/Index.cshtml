@@ -1,0 +1,41 @@
+﻿@model VacancyManagement.Domain.Dtos.User.UserRequest
+
+@{
+    ViewData["Title"] = "Apply to Vacancy";
+}
+
+<h2>Apply to Vacancy</h2>
+
+<div class="container">
+    @* <h3>Vacancy: @Model.VacancyTitle</h3> *@
+
+    <form asp-action="Apply" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CV" class="control-label"></label>
+            <input asp-for="CV" type="file" class="form-control" />
+            <span asp-validation-for="CV" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Apply to Vacancy</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
