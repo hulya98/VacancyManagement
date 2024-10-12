@@ -10,6 +10,7 @@ namespace VacancyManagement.API.Extensions
         {
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserVacancyService, UserVacancyService>();
+            builder.Services.AddScoped<IVacancyService, VacancyService>();
         }
     }
 }

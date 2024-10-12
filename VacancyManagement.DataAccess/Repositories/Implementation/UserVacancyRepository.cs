@@ -13,32 +13,34 @@ using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.DataAccess.Repositories.Implementation
 {
-	public class UserVacancyRepository : Repository<UserVacancy>, IUserVacancyRepository
-	{
-		private readonly Context _context;
-		private readonly DbSet<UserVacancy> _dbSet;
+    public class UserVacancyRepository : Repository<UserVacancy>, IUserVacancyRepository
+    {
+        private readonly Context _context;
+        private readonly DbSet<UserVacancy> _dbSet;
 
-		public UserVacancyRepository(Context context) : base(context)
-		{
-			_context = context;
-			_dbSet = context.Set<UserVacancy>();
-		}
+        public UserVacancyRepository(Context context) : base(context)
+        {
+            _context = context;
+            _dbSet = context.Set<UserVacancy>();
+        }
 
-		public async Task<List<UserVacancyViewDto>> GetAllApplies()
-		{
-			var allApplies = await _context.UserVacancies
-										.Include(x => x.User)
-										.Include(x => x.Vacancy)
-										.Select(x => new UserVacancyViewDto
-										{
-											Id = x.Id,
-											UserId = x.UserId,
-											FullName = x.User.FullName,
-											VacancyId = x.VacancyId,
-											VacancyName = x.Vacancy.Name
-										})
-										.ToListAsync();
-			return allApplies;
-		}
-	}
+        public async Task<List<UserVacancyViewDto>> GetAllApplies()
+        {
+            var allApplies = await _context.UserVacancies
+                                        .Include(x => x.User)
+                                        .Include(x => x.Vacancy)
+                                        .Select(x => new UserVacancyViewDto
+                                        {
+                                            Id = x.Id,
+                                            UserId = x.UserId,
+                                            FullName = x.User.FullName,
+                                            VacancyId = x.VacancyId,
+                                            VacancyName = x.Vacancy.Name,
+                                            PhoneNumber = x.User.PhoneNumber,
+                                            Email = x.User.Email
+                                        })
+                                        .ToListAsync();
+            return allApplies;
+        }
+    }
 }

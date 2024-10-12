@@ -1,0 +1,30 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VacancyManagement.DataAccess.Repositories.Abstract;
+using VacancyManagement.Domain.Entities;
+using VacancyManagement.Domain;
+
+namespace VacancyManagement.DataAccess.Repositories.Implementation
+{
+    public class VacancyRepository : Repository<Vacancy>, IVacancyRepository
+    {
+        private readonly Context _context;
+        private readonly DbSet<Vacancy> _dbSet;
+
+        public VacancyRepository(Context context) : base(context)
+        {
+            _context = context;
+            _dbSet = context.Set<Vacancy>();
+        }
+
+        public async Task<List<Vacancy>> GetActiveVacancies()
+        {
+            var data = await _dbSet.Where(x => x.IsActive == true).ToListAsync();
+            return data;
+        }
+    }
+}

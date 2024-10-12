@@ -1,0 +1,31 @@
+﻿@model List<VacancyManagement.Domain.Dtos.UserVacancy.UserVacancyViewDto>
+
+@{
+    ViewData["Title"] = "All Applies";
+}
+
+<h2>All Applies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>Id</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>VacancyName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vacancy in Model)
+        {
+            <tr>
+                <td hidden>@vacancy.Id</td>
+                <td>@vacancy.FullName</td>
+                <td>@vacancy.Email</td>
+                <td>@vacancy.PhoneNumber</td>
+                <td>@vacancy.VacancyName</td>
+            </tr>
+        }
+    </tbody>
+</table>

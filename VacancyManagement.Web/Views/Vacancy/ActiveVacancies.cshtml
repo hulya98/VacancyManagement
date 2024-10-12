@@ -1,0 +1,32 @@
+﻿@model List<VacancyManagement.Domain.Dtos.Vacancy.VacancyViewDto>
+
+@{
+    ViewData["Title"] = "Vacancies List";
+}
+
+<h2>Available Vacancies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>Id</th>
+            <th>Name</th>
+            <th>Apply</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vacancy in Model)
+        {
+            <tr>
+                <td>@vacancy.Id</td>
+                <td>@vacancy.Name</td>
+                <td>
+                    <form method="get" action="/User/Apply">
+                        <input type="hidden" name="vacancyId" value="@vacancy.Id" />
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,3 +1,4 @@
+using VacancyManagement.Web;
 using VacancyManagement.Web.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,10 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient<ApiClient>(client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7119/"); // Set your API base URL here
-});
+Configuration.ConfigureHttpClient<UserAPIClient>(builder.Services);
+Configuration.ConfigureHttpClient<VacancyAPIClient>(builder.Services);
+Configuration.ConfigureHttpClient<UserVacancyAPIClient>(builder.Services);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
