@@ -11,22 +11,67 @@
         <tr>
             <th hidden>Id</th>
             <th>Name</th>
+            <th>Requirements</th>
             <th>Apply</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var vacancy in Model)
         {
             <tr>
-                <td>@vacancy.Id</td>
+                <td hidden>@vacancy.Id</td>
                 <td>@vacancy.Name</td>
+                <td>
+                    <!-- Expand/Collapse Button for Requirements -->
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#requirements-@vacancy.Id" aria-expanded="false" aria-controls="requirements-@vacancy.Id">
+                        <i class="fas fa-chevron-down"></i> View Requirements
+                    </button>
+                </td>
                 <td>
                     <form method="get" action="/User/Apply">
                         <input type="hidden" name="vacancyId" value="@vacancy.Id" />
                         <button type="submit" class="btn btn-primary">Apply</button>
                     </form>
                 </td>
+                <td>
+                    <form method="get" action="/Vacancy/GetVacancyById">
+                        <input type="hidden" name="vacancyId" value="@vacancy.Id" />
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr class="collapse" id="requirements-@vacancy.Id">
+                <td colspan="4">
+                    <ul class="list-group">
+                        @if (vacancy.VacancyRequirements != null && vacancy.VacancyRequirements.Any())
+                        {
+                            @foreach (var requirement in vacancy.VacancyRequirements)
+                            {
+                                <li class="list-group-item">@requirement.Requirement</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">No requirements listed.</li>
+                        }
+                    </ul>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        // Optional: Toggle icon change on collapse
+        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                let icon = this.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+    </script>
+}

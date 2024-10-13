@@ -8,6 +8,7 @@ using VacancyManagement.Domain.Dtos;
 using VacancyManagement.Domain.Dtos.User;
 using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Dtos.Vacancy;
+using VacancyManagement.Domain.Dtos.VacancyRequirement;
 using VacancyManagement.Domain.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -25,6 +26,10 @@ namespace VacancyManagement.Domain.Mappers
             CreateMap<UserVacancy, UserVacancyViewDto>().ReverseMap();
 
             CreateMap<Vacancy, VacancyViewDto>().ReverseMap();
+            CreateMap<Vacancy, VacancyRequest>().ReverseMap();
+
+            CreateMap<VacancyRequirement, VacancyRequirementViewDto>().ReverseMap();
+            CreateMap<VacancyRequirement, VacancyRequirementRequest>().ReverseMap();
         }
     }
 }

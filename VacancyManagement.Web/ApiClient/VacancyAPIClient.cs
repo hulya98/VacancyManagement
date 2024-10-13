@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Dtos.Vacancy;
 
 namespace VacancyManagement.Web.ApiClient
@@ -24,6 +25,34 @@ namespace VacancyManagement.Web.ApiClient
             });
 
             return vacancies;
+        }
+
+        public async Task<VacancyViewDto> SaveVacancy(VacancyRequest request)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/Vacancy/Add", request);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var vacancy = JsonSerializer.Deserialize<VacancyViewDto>(content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return vacancy;
+        }
+
+        public async Task<VacancyViewDto> GetVacancyByIdAsync(int vacancyId)
+        {
+            var response = await _httpClient.GetAsync($"api/Vacancy/GetVacancyById?vacancyId={vacancyId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var vacancy = JsonSerializer.Deserialize<VacancyViewDto>(responseContent);
+                return vacancy;
+            }
+
+            return null;
         }
     }
 }

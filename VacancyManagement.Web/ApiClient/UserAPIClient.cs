@@ -24,7 +24,7 @@ namespace VacancyManagement.Web.ApiClient
                 PhoneNumber = userRequest.PhoneNumber,
                 VacancyId = userRequest.VacancyId,
             };
-            var response = await _httpClient.PostAsJsonAsync("api/User/Save", request);
+            var response = await _httpClient.PostAsJsonAsync("api/User/Add", request);
             return response.IsSuccessStatusCode;
         }
     }

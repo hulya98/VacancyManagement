@@ -1,0 +1,71 @@
+﻿@model VacancyManagement.Domain.Dtos.Vacancy.VacancyRequest
+
+@{
+    ViewData["Title"] = "Create Vacancy";
+}
+
+<h2>Create Vacancy</h2>
+
+<form asp-action="AddVacancy" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+
+    <h4>Vacancy Requirements</h4>
+    <div id="requirements-container">
+        <!-- Start with one requirement field, even if it's an empty list -->
+        <div class="form-group requirement-item" id="requirement-item-0">
+            <label for="VacancyRequirements[0].Requirement">Requirement</label>
+            <input name="VacancyRequirements[0].Requirement" class="form-control" />
+            <input type="hidden" name="VacancyRequirements[0].VacancyId" value="0" />
+            <input type="hidden" name="VacancyRequirements[0].Id" value="0" />
+            <button type="button" class="btn btn-success btn-sm mt-2" onclick="addRequirement()">+</button>
+            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeRequirement(0)">-</button>
+        </div>
+    </div>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let requirementIndex = 1; // Start from 1 as the first field is rendered
+
+        function addRequirement() {
+            let container = document.getElementById('requirements-container');
+            let newRequirement = `
+                        <div class="form-group requirement-item" id="requirement-item-${requirementIndex}">
+                            <label for="VacancyRequirements[${requirementIndex}].Requirement">Requirement</label>
+                            <input name="VacancyRequirements[${requirementIndex}].Requirement" class="form-control" />
+                            <input type="hidden" name="VacancyRequirements[${requirementIndex}].VacancyId" value="0" />
+                            <input type="hidden" name="VacancyRequirements[${requirementIndex}].Id" value="0" />
+                            <button type="button" class="btn btn-success btn-sm mt-2" onclick="addRequirement()">+</button>
+                            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeRequirement(${requirementIndex})">-</button>
+                        </div>`;
+
+            container.insertAdjacentHTML('beforeend', newRequirement);
+            requirementIndex++;
+        }
+
+        function removeRequirement(index) {
+            // Do not allow removal if there's only one field left
+            let container = document.getElementById('requirements-container');
+            if (container.children.length > 1) {
+                let item = document.getElementById(`requirement-item-${index}`);
+                if (item) {
+                    item.remove();
+                }
+            }
+        }
+    </script>
+}

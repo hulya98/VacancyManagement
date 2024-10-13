@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VacancyManagement.DataAccess.Repositories.Abstract;
 using VacancyManagement.Domain.Entities;
 using VacancyManagement.Domain;
+using VacancyManagement.Domain.Dtos.Vacancy;
 
 namespace VacancyManagement.DataAccess.Repositories.Implementation
 {
@@ -23,7 +24,13 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
 
         public async Task<List<Vacancy>> GetActiveVacancies()
         {
-            var data = await _dbSet.Where(x => x.IsActive == true).ToListAsync();
+            var data = await _dbSet.Include(x => x.VacancyRequirements).Where(x => x.IsActive == true).ToListAsync();
+            return data;
+        }
+
+        public async Task<Vacancy> GetVacancyById(int id)
+        {
+            var data = await _dbSet.Where(x => x.Id == id).Include(x => x.VacancyRequirements).FirstOrDefaultAsync();
             return data;
         }
     }

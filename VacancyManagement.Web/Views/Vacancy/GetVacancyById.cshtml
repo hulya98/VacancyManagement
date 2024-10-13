@@ -1,0 +1,43 @@
+﻿@model VacancyManagement.Domain.Dtos.Vacancy.VacancyViewDto
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vacancy Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Vacancy Details</h1>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3>@Model.Name</h3>
+                <p><strong>Vacancy ID:</strong> @Model.Id</p>
+
+                @if (Model.VacancyRequirements != null && Model.VacancyRequirements.Any())
+                {
+                    <h4>Requirements</h4>
+                    <ul class="list-group">
+                        @foreach (var requirement in Model.VacancyRequirements)
+                        {
+                            <li class="list-group-item">
+                                @requirement.Requirement
+                                <!-- Add more properties of VacancyRequirementViewDto if needed -->
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No requirements for this vacancy.</p>
+                }
+            </div>
+        </div>
+
+        <a href="@Url.Action("GetActiveVacancies", "Vacancy")" class="btn btn-primary mt-4">Back to Vacancies</a>
+    </div>
+</body>
+</html>

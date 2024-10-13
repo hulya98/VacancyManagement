@@ -16,10 +16,7 @@ namespace VacancyManagement.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+   
 
         [HttpGet]
         public IActionResult Apply(int vacancyId)
