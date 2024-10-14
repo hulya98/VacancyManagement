@@ -11,6 +11,7 @@ namespace VacancyManagement.Domain.Dtos.Vacancy
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsActive { get; set; }
         public List<VacancyRequirementViewDto> VacancyRequirements { get; set; }
     }
 }

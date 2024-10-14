@@ -35,6 +35,18 @@ namespace VacancyManagement.API.Controllers
             return Ok(request);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Update(VacancyRequest request)
+        {
+            var vacancy = await _vacancyService.Update(request);
+
+            var requirements = await _vacancyRequirementService.AddRange(request.Id, request.VacancyRequirements);
+
+            return Ok(request);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> GetVacancyById(int vacancyId)
         {

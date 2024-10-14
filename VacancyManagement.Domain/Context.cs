@@ -54,8 +54,8 @@ namespace VacancyManagement.Domain
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
-			//var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
+			//var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
+			var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
 
 			optionsBuilder.UseSqlServer(migrationsConnectionString);
 

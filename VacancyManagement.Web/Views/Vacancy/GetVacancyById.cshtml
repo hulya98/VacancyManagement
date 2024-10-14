@@ -1,43 +1,80 @@
 ﻿@model VacancyManagement.Domain.Dtos.Vacancy.VacancyViewDto
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vacancy Details</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="container">
-        <h1>Vacancy Details</h1>
+@{
+    ViewData["Title"] = "Edit Vacancy";
+}
 
-        <div class="card mt-4">
-            <div class="card-body">
-                <h3>@Model.Name</h3>
-                <p><strong>Vacancy ID:</strong> @Model.Id</p>
+<h2>Edit Vacancy</h2>
 
-                @if (Model.VacancyRequirements != null && Model.VacancyRequirements.Any())
-                {
-                    <h4>Requirements</h4>
-                    <ul class="list-group">
-                        @foreach (var requirement in Model.VacancyRequirements)
-                        {
-                            <li class="list-group-item">
-                                @requirement.Requirement
-                                <!-- Add more properties of VacancyRequirementViewDto if needed -->
-                            </li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>No requirements for this vacancy.</p>
-                }
-            </div>
-        </div>
+<form asp-action="EditVacancy" method="post">
+    <input type="hidden" asp-for="Id" />
 
-        <a href="@Url.Action("GetActiveVacancies", "Vacancy")" class="btn btn-primary mt-4">Back to Vacancies</a>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-</body>
-</html>
+
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+
+    <h4>Vacancy Requirements</h4>
+    <div id="requirements-container">
+        @if (Model.VacancyRequirements != null && Model.VacancyRequirements.Any())
+        {
+            @for (int i = 0; i < Model.VacancyRequirements.Count; i++)
+            {
+                <div class="form-group requirement-item" id="requirement-item-@i">
+                    <label for="VacancyRequirements[@i].Requirement">Requirement</label>
+                    <input name="VacancyRequirements[@i].Requirement" class="form-control" value="@Model.VacancyRequirements[@i].Requirement" />
+                    <input type="hidden" name="VacancyRequirements[@i].VacancyId" value="@Model.VacancyRequirements[@i].VacancyId" />
+                    <input type="hidden" name="VacancyRequirements[@i].Id" value="@Model.VacancyRequirements[@i].Id" />
+                    <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeRequirement(@i)">-</button>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No requirements available.</p>
+        }
+
+        <!-- Placeholder for adding new requirements dynamically -->
+    </div>
+
+    <button type="button" class="btn btn-success btn-sm mt-3" onclick="addRequirement()">Add New Requirement</button>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let requirementIndex = @Model.VacancyRequirements?.Count ?? 0; // Continue from the current count
+
+        function addRequirement() {
+            let container = document.getElementById('requirements-container');
+            let newRequirement = `
+                                <div class="form-group requirement-item" id="requirement-item-${requirementIndex}">
+                                    <label for="VacancyRequirements[${requirementIndex}].Requirement">Requirement</label>
+                                    <input name="VacancyRequirements[${requirementIndex}].Requirement" class="form-control" />
+                                    <input type="hidden" name="VacancyRequirements[${requirementIndex}].VacancyId" value="0" />
+                                    <input type="hidden" name="VacancyRequirements[${requirementIndex}].Id" value="0" />
+                                    <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeRequirement(${requirementIndex})">-</button>
+                                </div>`;
+
+            container.insertAdjacentHTML('beforeend', newRequirement);
+            requirementIndex++;
+        }
+
+        function removeRequirement(index) {
+            let item = document.getElementById(`requirement-item-${index}`);
+            if (item) {
+                item.remove();
+            }
+        }
+    </script>
+}
