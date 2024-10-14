@@ -29,7 +29,7 @@ namespace VacancyManagement.DataAccess.Services.Implementation
 
         public async Task<List<VacancyRequirementViewDto>> AddRange(int vacancyId, List<VacancyRequirementRequest> request)
         {
-            //_repository.DeleteAllByVacancyId(vacancyId);
+            _repository.DeleteAllByVacancyId(vacancyId);
             foreach (var item in request)
             {
                 item.VacancyId = vacancyId;

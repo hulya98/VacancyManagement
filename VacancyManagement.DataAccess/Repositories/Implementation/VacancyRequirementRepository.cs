@@ -27,7 +27,6 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
         public async Task<List<VacancyRequirement>> AddRange(List<VacancyRequirement> vacancyRequirements)
         {
             await _dbSet.AddRangeAsync(vacancyRequirements);
-            Debug.WriteLine("ishledi");
             return vacancyRequirements;
         }
 

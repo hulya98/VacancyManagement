@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VacancyManagement.Domain.Dtos;
 using VacancyManagement.Domain.Dtos.User;
+using VacancyManagement.Domain.Dtos.UserQuizAnswer;
 using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Dtos.Vacancy;
 using VacancyManagement.Domain.Dtos.VacancyRequirement;
@@ -30,6 +31,9 @@ namespace VacancyManagement.Domain.Mappers
 
             CreateMap<VacancyRequirement, VacancyRequirementViewDto>().ReverseMap();
             CreateMap<VacancyRequirement, VacancyRequirementRequest>().ReverseMap();
+
+            CreateMap<UserQuizAnswer, UserQuizAnswerViewDto>().ReverseMap();
+            CreateMap<UserQuizAnswer, UserQuizAnswerRequest>().ReverseMap();
         }
     }
 }
