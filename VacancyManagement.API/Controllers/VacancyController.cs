@@ -48,9 +48,9 @@ namespace VacancyManagement.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetVacancyById(int vacancyId)
+        public async Task<IActionResult> GetVacancyById(int id)
         {
-            return Ok(await _vacancyService.GetVacancyById(vacancyId));
+            return Ok(await _vacancyService.GetVacancyById(id));
         }
 
 

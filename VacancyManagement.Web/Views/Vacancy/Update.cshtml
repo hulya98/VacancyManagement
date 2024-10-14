@@ -6,8 +6,8 @@
 
 <h2>Edit Vacancy</h2>
 
-<form asp-action="EditVacancy" method="post">
-    <input type="hidden" asp-for="Id" />
+<form method="post" enctype="multipart/form-data">
+    @* <input type="hidden" asp-for="Id" /> *@
 
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -47,7 +47,7 @@
     <button type="button" class="btn btn-success btn-sm mt-3" onclick="addRequirement()">Add New Requirement</button>
 
     <div class="form-group mt-3">
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>
 

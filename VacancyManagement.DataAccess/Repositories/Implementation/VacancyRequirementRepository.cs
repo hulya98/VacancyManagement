@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
         public async Task<List<VacancyRequirement>> AddRange(List<VacancyRequirement> vacancyRequirements)
         {
             await _dbSet.AddRangeAsync(vacancyRequirements);
+            Debug.WriteLine("ishledi");
             return vacancyRequirements;
         }
 

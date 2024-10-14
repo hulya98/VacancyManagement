@@ -20,31 +20,47 @@ namespace VacancyManagement.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ActiveVacancies()
+        public async Task<IActionResult> ActiveVacanciesForAdmin()
         {
             var data = await _apiClient.GetActiveVacanciesAsync();
             return View(data);
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddVacancy()
+        public async Task<IActionResult> ActiveVacanciesForGuest()
+        {
+            var data = await _apiClient.GetActiveVacanciesAsync();
+            return View(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVacancy(VacancyRequest request)
+        public async Task<IActionResult> Add(VacancyRequest request)
         {
-            var vacancy = await _apiClient.SaveVacancy(request);
+            var vacancy = await _apiClient.AddVacancy(request);
 
             return RedirectToAction("Success");
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetVacancyById(int vacancyId)
+        public async Task<IActionResult> Update(int id)
         {
-            var vacancy = await _apiClient.GetVacancyByIdAsync(vacancyId);
+            var vacancy = await _apiClient.GetVacancyByIdAsync(id);
             return View(vacancy);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(VacancyRequest request)
+        {
+            var vacancy = await _apiClient.UpdateVacancy(request);
+
+            return RedirectToAction("Success");
+        }
+
     }
 }

@@ -1,0 +1,70 @@
+﻿@model List<VacancyManagement.Domain.Dtos.Vacancy.VacancyViewDto>
+
+@{
+    ViewData["Title"] = "Vacancies List";
+}
+
+<h2>Available Vacancies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>Id</th>
+            <th>Name</th>
+            <th>Requirements</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vacancy in Model)
+        {
+            <tr>
+                <td hidden>@vacancy.Id</td>
+                <td>@vacancy.Name</td>
+                <td>
+                    <!-- Expand/Collapse Button for Requirements -->
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#requirements-@vacancy.Id" aria-expanded="false" aria-controls="requirements-@vacancy.Id">
+                        <i class="fas fa-chevron-down"></i> View Requirements
+                    </button>
+                </td>
+                <td>
+                    <form method="get" action="/Vacancy/Update">
+                        <input type="hidden" name="Id" value="@vacancy.Id" />
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr class="collapse" id="requirements-@vacancy.Id">
+                <td colspan="4">
+                    <ul class="list-group">
+                        @if (vacancy.VacancyRequirements != null && vacancy.VacancyRequirements.Any())
+                        {
+                            @foreach (var requirement in vacancy.VacancyRequirements)
+                            {
+                                <li class="list-group-item">@requirement.Requirement</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">No requirements listed.</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        // Optional: Toggle icon change on collapse
+        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                let icon = this.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+    </script>
+}

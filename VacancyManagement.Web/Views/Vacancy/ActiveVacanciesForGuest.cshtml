@@ -13,7 +13,6 @@
             <th>Name</th>
             <th>Requirements</th>
             <th>Apply</th>
-            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -32,12 +31,6 @@
                     <form method="get" action="/User/Apply">
                         <input type="hidden" name="vacancyId" value="@vacancy.Id" />
                         <button type="submit" class="btn btn-primary">Apply</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" action="/Vacancy/GetVacancyById">
-                        <input type="hidden" name="vacancyId" value="@vacancy.Id" />
-                        <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </td>
             </tr>

@@ -29,9 +29,12 @@ namespace VacancyManagement.DataAccess.Services.Implementation
 
         public async Task<List<VacancyRequirementViewDto>> AddRange(int vacancyId, List<VacancyRequirementRequest> request)
         {
-            _repository.DeleteAllByVacancyId(vacancyId);
+            //_repository.DeleteAllByVacancyId(vacancyId);
             foreach (var item in request)
+            {
                 item.VacancyId = vacancyId;
+                item.Id = 0;
+            }
             var map = _mapper.Map<List<VacancyRequirement>>(request);
             var vacancyRequirement = await _repository.AddRange(map);
             await _unitOfWork.CommitAsync();

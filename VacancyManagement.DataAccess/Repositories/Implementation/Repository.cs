@@ -47,8 +47,9 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
 
         public virtual async Task<T> Update(T entity)
         {
-            _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            _dbSet.Update(entity);
+            //_dbSet.Attach(entity);
+            //_context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
     }
