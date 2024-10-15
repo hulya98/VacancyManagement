@@ -43,7 +43,6 @@ namespace VacancyManagement.Web.Controllers
         public async Task<IActionResult> Add(VacancyRequest request)
         {
             var vacancy = await _apiClient.AddVacancy(request);
-
             return RedirectToAction("Success");
         }
 
@@ -58,7 +57,6 @@ namespace VacancyManagement.Web.Controllers
         public async Task<IActionResult> Update(VacancyRequest request)
         {
             var vacancy = await _apiClient.UpdateVacancy(request);
-
             return RedirectToAction("Success");
         }
 

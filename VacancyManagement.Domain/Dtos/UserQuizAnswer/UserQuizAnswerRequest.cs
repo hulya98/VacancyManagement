@@ -13,5 +13,6 @@ namespace VacancyManagement.Domain.Dtos.UserQuizAnswer
         public int VacancyId { get; set; }
         public int QuestionId { get; set; }
         public int UserAnswerId { get; set; }
+        public int CurrentQuestionIndex { get; set; }
     }
 }

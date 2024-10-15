@@ -27,5 +27,7 @@ namespace VacancyManagement.Web.ApiClient
             var response = await _httpClient.PostAsJsonAsync("api/User/Add", request);
             return response.IsSuccessStatusCode;
         }
+
+
     }
 }

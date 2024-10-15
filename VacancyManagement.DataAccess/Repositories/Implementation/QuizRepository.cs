@@ -23,7 +23,10 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
 
         public async Task<List<Quiz>> GetQuizzesByVacationId(int vacationId)
         {
-            var quizzes = await _dbSet.Where(x => x.VacancyId == vacationId).ToListAsync();
+            var quizzes = await _dbSet.Where(x => x.VacancyId == vacationId)
+               .Include(x => x.Vacancy)
+               .Include(x => x.QuizAnswers)
+               .ToListAsync();
             return quizzes;
         }
     }

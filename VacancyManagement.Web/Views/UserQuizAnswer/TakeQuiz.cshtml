@@ -1,0 +1,49 @@
+﻿@* @page *@
+@model VacancyManagement.Domain.Dtos.Quiz.QuizPageModel
+
+
+@{
+    var currentQuestion = Model.QuizList[Model.CurrentQuestionIndex];
+}
+
+<div class="quiz-container">
+    <h3>Question: @currentQuestion.Question</h3>
+
+    <form method="post" asp-action="SubmitAnswer">
+        <div class="answers">
+            @for (int i = 0; i < currentQuestion.QuizzAnswers.Count; i++)
+            {
+                <label>
+                    <input type="radio" name="UserAnswerId" value="@currentQuestion.QuizzAnswers[i].Id" required />
+                    @currentQuestion.QuizzAnswers[i].Title
+                </label>
+                <br />
+            }
+        </div>
+
+        <input type="hidden" name="QuestionId" value="@currentQuestion.Id" />
+        <input type="hidden" name="VacancyId" value="@Model.VacationId" />
+        <input type="hidden" name="CurrentQuestionIndex" value="@Model.CurrentQuestionIndex" />
+        <button type="submit" class="next-button">Submit Answer</button>
+    </form>
+
+    <div id="timer">
+        Time remaining: <span id="time">60</span> seconds
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var timeLeft = 60;
+        var timer = setInterval(function () {
+            timeLeft--;
+            document.getElementById('time').textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                document.forms[0].submit(); // Auto-submit when time is up
+            }
+        }, 1000);
+    </script>
+}
+

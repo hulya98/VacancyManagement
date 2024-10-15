@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagement.Domain.Dtos.User;
 using VacancyManagement.Web.ApiClient;
+using VacancyManagement.Web.Validations;
 
 namespace VacancyManagement.Web.Controllers
 {
@@ -9,14 +10,22 @@ namespace VacancyManagement.Web.Controllers
     {
 
         private UserAPIClient _apiClient;
+        private UserVacancyAPIClient _userVacancyAPIClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UserController(UserAPIClient apiClient, IWebHostEnvironment webHostEnvironment)
+        public UserController(UserAPIClient apiClient,
+                              UserVacancyAPIClient userVacancyAPIClient,
+                              IWebHostEnvironment webHostEnvironment)
         {
             _apiClient = apiClient;
+            _userVacancyAPIClient = userVacancyAPIClient;
             _webHostEnvironment = webHostEnvironment;
         }
 
-   
+        [HttpGet]
+        public async Task<IActionResult> ExistUser()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult Apply(int vacancyId)
@@ -31,9 +40,17 @@ namespace VacancyManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Apply(UserIncludeCVRequest request)
         {
+            if (await UserValidation.UserIsExist(_userVacancyAPIClient, request.Email, request.VacancyId))
+            {
+                ModelState.AddModelError("existUser", "This user already exist in our system");
+            }
+
             if (!ModelState.IsValid)
             {
+                return View("ExistUser");
             }
+
+
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads/cvs");
             Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
 
@@ -46,7 +63,7 @@ namespace VacancyManagement.Web.Controllers
             }
 
             // Save the file name to the view model (this can be saved to the database later)
-            request.CVName = "fileName";
+            request.CVName = request.FirstName + request.LastName;
             var success = await _apiClient.AddUserAsync(request);
             if (success)
             {

@@ -8,6 +8,7 @@ using VacancyManagement.DataAccess.Repositories.Abstract;
 using VacancyManagement.DataAccess.Services.Abstract;
 using VacancyManagement.DataAccess.UnitOfWork;
 using VacancyManagement.Domain.Dtos.Quiz;
+using VacancyManagement.Domain.Dtos.QuizAnswer;
 using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.DataAccess.Services.Implementation

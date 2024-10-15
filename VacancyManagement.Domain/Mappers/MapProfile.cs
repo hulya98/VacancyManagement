@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VacancyManagement.Domain.Dtos;
+using VacancyManagement.Domain.Dtos.Quiz;
+using VacancyManagement.Domain.Dtos.QuizAnswer;
 using VacancyManagement.Domain.Dtos.User;
 using VacancyManagement.Domain.Dtos.UserQuizAnswer;
 using VacancyManagement.Domain.Dtos.UserVacancy;
@@ -34,6 +36,13 @@ namespace VacancyManagement.Domain.Mappers
 
             CreateMap<UserQuizAnswer, UserQuizAnswerViewDto>().ReverseMap();
             CreateMap<UserQuizAnswer, UserQuizAnswerRequest>().ReverseMap();
+
+            CreateMap<Quiz, QuizRequest>().ReverseMap();
+
+            CreateMap<QuizAnswer, QuizAnswerViewDto>().ReverseMap();
+
+            CreateMap<Quiz, QuizViewDto>()
+                .ForMember(dest => dest.QuizzAnswers, opt => opt.MapFrom(src => src.QuizAnswers));
         }
     }
 }

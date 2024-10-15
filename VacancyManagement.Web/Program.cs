@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 Configuration.ConfigureHttpClient<UserAPIClient>(builder.Services);
 Configuration.ConfigureHttpClient<VacancyAPIClient>(builder.Services);
 Configuration.ConfigureHttpClient<UserVacancyAPIClient>(builder.Services);
+Configuration.ConfigureHttpClient<UserQuizAnswerAPIClient>(builder.Services);
 
 var app = builder.Build();
 
