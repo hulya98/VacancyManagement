@@ -11,6 +11,7 @@ using VacancyManagement.Domain.Entities;
 using VacancyManagement.Domain.EntityTypeConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using VacancyManagement.Domain.Dtos.RawSqlDtos;
 
 namespace VacancyManagement.Domain
 {
@@ -36,6 +37,7 @@ namespace VacancyManagement.Domain
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<QuizAnswer> QuizAnswers { get; set; }
         public DbSet<UserQuizAnswer> UserQuizAnswers { get; set; }
+        public DbSet<QuizAnswerCompare> QuizAnswerCompares { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -49,7 +51,7 @@ namespace VacancyManagement.Domain
             modelBuilder.ApplyConfiguration(new QuizConfiguration());
             modelBuilder.ApplyConfiguration(new QuizAnswerConfiguration());
 
-
+            modelBuilder.Entity<QuizAnswerCompare>().HasNoKey();
             base.OnModelCreating(modelBuilder);
         }
 

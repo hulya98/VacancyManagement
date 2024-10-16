@@ -23,5 +23,12 @@ namespace VacancyManagement.API.Controllers
             var result = await _userQuizAnswerService.Add(request);
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserAnswerCompare(int vacancyId, int userId)
+        {
+            var data = await _userQuizAnswerService.GetUserAnswerCompare(vacancyId, userId);
+            return Ok(data);
+        }
     }
 }

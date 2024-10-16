@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VacancyManagement.DataAccess.Repositories.Abstract;
 using VacancyManagement.DataAccess.Services.Abstract;
 using VacancyManagement.DataAccess.UnitOfWork;
+using VacancyManagement.Domain.Dtos.RawSqlDtos;
 using VacancyManagement.Domain.Dtos.UserQuizAnswer;
 using VacancyManagement.Domain.Entities;
 
@@ -31,6 +32,12 @@ namespace VacancyManagement.DataAccess.Services.Implementation
             var result = await _userQuizAnswerRepository.Add(map);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<UserQuizAnswerViewDto>(result);
+        }
+
+        public async Task<List<QuizAnswerCompare>> GetUserAnswerCompare(int vacancyId, int userId)
+        {
+            var datas = await _userQuizAnswerRepository.GetUserAnswerCompare(vacancyId, userId);
+            return datas;
         }
     }
 }
