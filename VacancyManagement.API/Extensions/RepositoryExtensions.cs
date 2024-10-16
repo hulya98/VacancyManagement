@@ -15,6 +15,7 @@ namespace VacancyManagement.API.Extensions
             builder.Services.AddScoped<IVacancyRequirementRepository, VacancyRequirementRepository>();
             builder.Services.AddScoped<IQuizRepository, QuizRepository>();
             builder.Services.AddScoped<IQuizAnswerRepository, QuizAnswerRepository>();
+            builder.Services.AddScoped<IUserQuizAnswerRepository, UserQuizAnswerRepository>();
 
         }
     }

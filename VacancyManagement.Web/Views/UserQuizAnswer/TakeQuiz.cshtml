@@ -1,5 +1,4 @@
-﻿@* @page *@
-@model VacancyManagement.Domain.Dtos.Quiz.QuizPageModel
+﻿@model VacancyManagement.Domain.Dtos.Quiz.QuizPageModel
 
 
 @{
@@ -10,6 +9,7 @@
     <h3>Question: @currentQuestion.Question</h3>
 
     <form method="post" asp-action="SubmitAnswer">
+        @* <button type="submit" class="btn btn-primary btn-lg">Submit Answer</button> *@
         <div class="answers">
             @for (int i = 0; i < currentQuestion.QuizzAnswers.Count; i++)
             {
@@ -23,8 +23,9 @@
 
         <input type="hidden" name="QuestionId" value="@currentQuestion.Id" />
         <input type="hidden" name="VacancyId" value="@Model.VacationId" />
+        <input type="hidden" name="UserId" value="@Model.UserId" />
         <input type="hidden" name="CurrentQuestionIndex" value="@Model.CurrentQuestionIndex" />
-        <button type="submit" class="next-button">Submit Answer</button>
+        <button type="submit" class="btn btn-primary btn-lg">Submit Answer</button>
     </form>
 
     <div id="timer">

@@ -41,6 +41,8 @@ namespace VacancyManagement.DataAccess.Services.Implementation
             return _mapper.Map<UserViewDto>(user);
         }
 
+       
+
         public async Task<List<UserViewDto>> GetGuestUsers()
         {
             var users = await _userRepository.GetGuestUsers();

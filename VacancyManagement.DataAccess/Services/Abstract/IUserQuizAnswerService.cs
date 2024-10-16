@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VacancyManagement.Domain.Dtos.User;
+using VacancyManagement.Domain.Dtos.UserQuizAnswer;
 
 namespace VacancyManagement.DataAccess.Services.Abstract
 {
-	public interface IUserService
-	{
-		Task<UserViewDto> Add(UserRequest request);
-		Task<List<UserViewDto>> GetGuestUsers();
-		
-	}
+    public interface IUserQuizAnswerService
+    {
+        Task<UserQuizAnswerViewDto> Add(UserQuizAnswerRequest request);
+    }
 }

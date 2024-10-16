@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
+using VacancyManagement.Domain.Dtos.Quiz;
 using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Dtos.Vacancy;
+using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.Web.ApiClient
 {
@@ -23,8 +25,23 @@ namespace VacancyManagement.Web.ApiClient
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-
             return userVacancies;
         }
+
+        public async Task<bool> CheckUserIsExist(string email, int vacancyId)
+        {
+            var response = await _httpClient.GetAsync($"/api/UserVacancy/CheckUserIsExist?email={email}&vacancyId={vacancyId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var result = JsonSerializer.Deserialize<bool>(responseContent, options);
+                return result;
+            }
+            return false;
+        }
+
     }
 }

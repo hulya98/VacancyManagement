@@ -25,8 +25,8 @@ namespace VacancyManagement.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Add(UserRequest request)
 		{
-			await _userService.Add(request);
-			return Ok();
+		
+			return Ok(await _userService.Add(request));
 		}
 	}
 }

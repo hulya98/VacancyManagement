@@ -10,6 +10,7 @@ namespace VacancyManagement.Domain.Dtos.Quiz
     {
         public List<QuizViewDto> QuizList { get; set; } = new();
         public int VacationId { get; set; } = 1;
+        public int UserId { get; set; }
         public int CurrentQuestionIndex { get; set; } = 0;
     }
 }

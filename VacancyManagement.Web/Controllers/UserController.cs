@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using VacancyManagement.Domain.Dtos.User;
+using VacancyManagement.Domain.Entities;
 using VacancyManagement.Web.ApiClient;
-using VacancyManagement.Web.Validations;
+using VacancyManagement.Web.Services.Abstact;
 
 namespace VacancyManagement.Web.Controllers
 {
@@ -10,15 +11,15 @@ namespace VacancyManagement.Web.Controllers
     {
 
         private UserAPIClient _apiClient;
-        private UserVacancyAPIClient _userVacancyAPIClient;
+        private readonly IUserBusinessLogic _userBusinessLogic;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UserController(UserAPIClient apiClient,
-                              UserVacancyAPIClient userVacancyAPIClient,
+        public UserController(IUserBusinessLogic userBusinessLogic,
+                                                UserAPIClient apiClient,
                               IWebHostEnvironment webHostEnvironment)
         {
             _apiClient = apiClient;
-            _userVacancyAPIClient = userVacancyAPIClient;
             _webHostEnvironment = webHostEnvironment;
+            _userBusinessLogic = userBusinessLogic;
         }
 
         [HttpGet]
@@ -40,40 +41,19 @@ namespace VacancyManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Apply(UserIncludeCVRequest request)
         {
-            if (await UserValidation.UserIsExist(_userVacancyAPIClient, request.Email, request.VacancyId))
+            var response = await _userBusinessLogic.Apply(request);
+
+            if (response.HasErrors)
             {
-                ModelState.AddModelError("existUser", "This user already exist in our system");
+                foreach (var error in response.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+                return View(response.ViewName ?? "Apply");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View("ExistUser");
-            }
+            return RedirectToAction("TakeQuiz", "UserQuizAnswer", new { vacationId = request.VacancyId, userId = response.Data });
 
-
-            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads/cvs");
-            Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
-
-            string fileName = Guid.NewGuid().ToString() + "_" + request.CV.FileName;
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await request.CV.CopyToAsync(fileStream);
-            }
-
-            // Save the file name to the view model (this can be saved to the database later)
-            request.CVName = request.FirstName + request.LastName;
-            var success = await _apiClient.AddUserAsync(request);
-            if (success)
-            {
-                return RedirectToAction("Success");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Error adding user");
-                return View();
-            }
         }
     }
 }

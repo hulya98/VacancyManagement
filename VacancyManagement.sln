@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyManagement.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyManagement.API", "VacancyManagement.API\VacancyManagement.API.csproj", "{C48940BD-7240-4B26-BD07-54645D6EA44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacancyManagement.Web", "VacancyManagement.Web\VacancyManagement.Web.csproj", "{6A83E607-B907-4E25-AA62-B1FC4EE49ABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VacancyManagement.Web", "VacancyManagement.Web\VacancyManagement.Web.csproj", "{6A83E607-B907-4E25-AA62-B1FC4EE49ABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

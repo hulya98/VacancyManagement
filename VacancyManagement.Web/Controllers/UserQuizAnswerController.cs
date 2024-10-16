@@ -24,7 +24,7 @@ namespace VacancyManagement.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> TakeQuiz(int vacationId)
+        public async Task<IActionResult> TakeQuiz(int vacationId, int userId)
         {
             var quizList = await _apiClient.GetQuizzesByVacancyId(vacationId);
 
@@ -37,10 +37,10 @@ namespace VacancyManagement.Web.Controllers
             {
                 QuizList = quizList,
                 VacationId = vacationId,
-                CurrentQuestionIndex = 0
+                CurrentQuestionIndex = 0,
+                UserId = userId
 
             };
-
 
             return View(model);
         }
@@ -50,9 +50,10 @@ namespace VacancyManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitAnswer(UserQuizAnswerRequest userQuizAnswer)
         {
-
             userQuizAnswer.CurrentQuestionIndex++;
-            var quizModel = await GetQuizPageModel(userQuizAnswer.VacancyId, userQuizAnswer.QuestionId, userQuizAnswer.CurrentQuestionIndex); // A method to get the
+            var quizModel = await GetQuizPageModel(userQuizAnswer.VacancyId, userQuizAnswer.QuestionId, userQuizAnswer.UserId, userQuizAnswer.CurrentQuestionIndex); // A method to get the
+
+            await _apiClient.SaveUserAnswer(userQuizAnswer);
 
             if (quizModel.CurrentQuestionIndex >= quizModel.QuizList.Count)
             {
@@ -62,15 +63,16 @@ namespace VacancyManagement.Web.Controllers
             return View("TakeQuiz", quizModel);
         }
 
-        private async Task<QuizPageModel> GetQuizPageModel(int vacationId, int currentQuestionId, int index)
+        private async Task<QuizPageModel> GetQuizPageModel(int vacationId, int currentQuestionId, int userId, int index)
         {
             var quizzes = await _apiClient.GetQuizzesByVacancyId(vacationId);
 
             return new QuizPageModel
             {
                 QuizList = quizzes,
-                CurrentQuestionIndex = index, // Default to first question on initial load
-                VacationId = vacationId // Ensure you have the vacationId in your model
+                CurrentQuestionIndex = index,
+                VacationId = vacationId,
+                UserId = userId
             };
         }
 

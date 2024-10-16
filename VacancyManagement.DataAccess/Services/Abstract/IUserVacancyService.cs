@@ -13,5 +13,6 @@ namespace VacancyManagement.DataAccess.Services.Abstract
 	{
 		Task<UserVacancyViewDto> Add(UserVacancyRequest request);
 		Task<List<UserVacancyViewDto>> GetAllApplies();
-	}
+        Task<bool> CheckUserIsExist(string email, int vacancyId);
+    }
 }

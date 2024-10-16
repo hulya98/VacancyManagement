@@ -10,7 +10,6 @@ namespace VacancyManagement.Web.Controllers
         public UserVacancyController(UserVacancyAPIClient apiClient)
         {
             _apiClient = apiClient;
-
         }
 
         [HttpGet]

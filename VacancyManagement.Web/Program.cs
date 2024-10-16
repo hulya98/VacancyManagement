@@ -1,11 +1,13 @@
 using VacancyManagement.Web;
 using VacancyManagement.Web.ApiClient;
+using VacancyManagement.Web.Services.Abstact;
+using VacancyManagement.Web.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
 Configuration.ConfigureHttpClient<UserAPIClient>(builder.Services);
 Configuration.ConfigureHttpClient<VacancyAPIClient>(builder.Services);
 Configuration.ConfigureHttpClient<UserVacancyAPIClient>(builder.Services);

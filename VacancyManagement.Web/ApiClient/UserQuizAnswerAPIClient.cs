@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
 using VacancyManagement.Domain.Dtos.Quiz;
+using VacancyManagement.Domain.Dtos.UserQuizAnswer;
+using VacancyManagement.Domain.Dtos.UserVacancy;
 using VacancyManagement.Domain.Dtos.Vacancy;
+using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.Web.ApiClient
 {
@@ -25,6 +28,20 @@ namespace VacancyManagement.Web.ApiClient
                 return quizzes;
             }
             return new();
+        }
+
+        public async Task<UserQuizAnswerViewDto> SaveUserAnswer(UserQuizAnswerRequest request)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/UserQuizAnswer/SaveUserAnswer", request);
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var userQuizAnswer = JsonSerializer.Deserialize<UserQuizAnswerViewDto>(content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            return userQuizAnswer;
         }
     }
 }

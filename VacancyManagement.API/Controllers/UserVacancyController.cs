@@ -7,27 +7,35 @@ using VacancyManagement.Domain.Dtos.UserVacancy;
 
 namespace VacancyManagement.API.Controllers
 {
-	[Route("api/[controller]/[action]")]
-	[ApiController]
-	public class UserVacancyController : ControllerBase
-	{
-		private readonly IUserVacancyService _userVacancyService;
-		public UserVacancyController(IUserVacancyService userVacancyService)
-		{
-			_userVacancyService = userVacancyService;
-		}
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class UserVacancyController : ControllerBase
+    {
+        private readonly IUserVacancyService _userVacancyService;
+        public UserVacancyController(IUserVacancyService userVacancyService)
+        {
+            _userVacancyService = userVacancyService;
+        }
 
-		[HttpGet]
-		public async Task<IActionResult> GetAllApplies()
-		{
-			return Ok(await _userVacancyService.GetAllApplies());
-		}
+        [HttpGet]
+        public async Task<IActionResult> GetAllApplies()
+        {
+            return Ok(await _userVacancyService.GetAllApplies());
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> Save(UserVacancyRequest request)
-		{
-			await _userVacancyService.Add(request);
-			return Ok();
-		}
-	}
+        [HttpPost]
+        public async Task<IActionResult> Save(UserVacancyRequest request)
+        {
+            await _userVacancyService.Add(request);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckUserIsExist(string email, int vacancyId)
+        {
+            bool result = await _userVacancyService.CheckUserIsExist(email, vacancyId);
+            return Ok(result);
+
+        }
+    }
 }
