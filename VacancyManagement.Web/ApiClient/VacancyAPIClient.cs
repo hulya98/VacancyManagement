@@ -39,6 +39,7 @@ namespace VacancyManagement.Web.ApiClient
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
 
+
             return vacancy;
         }
 

@@ -9,7 +9,6 @@ namespace VacancyManagement.DataAccess.Services.Abstract
 {
     public interface IVacancyService
     {
-
         public Task<List<VacancyViewDto>> GetActiveVacancies();
         public Task<VacancyViewDto> Add(VacancyRequest request);
         public Task<VacancyViewDto> Update(VacancyRequest request);

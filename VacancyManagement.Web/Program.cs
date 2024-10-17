@@ -1,3 +1,7 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using System.Text.Json.Serialization;
+using VacancyManagement.Domain.Validation;
 using VacancyManagement.Web;
 using VacancyManagement.Web.ApiClient;
 using VacancyManagement.Web.Services.Abstact;
@@ -6,7 +10,18 @@ using VacancyManagement.Web.Services.Implementation;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(
+    options =>
+{
+    options.Filters.Add(new ValidationFilter());
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+}).AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; })
+    .Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssemblyContaining<ValidationFilter>();
+
 builder.Services.AddScoped<IUserBusinessLogic, UserBusinessLogic>();
 Configuration.ConfigureHttpClient<UserAPIClient>(builder.Services);
 Configuration.ConfigureHttpClient<VacancyAPIClient>(builder.Services);

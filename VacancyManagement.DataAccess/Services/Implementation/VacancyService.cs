@@ -47,7 +47,6 @@ namespace VacancyManagement.DataAccess.Services.Implementation
             var vacancies = await _vacancyRepository.GetActiveVacancies();
             var map = _mapper.Map<List<VacancyViewDto>>(vacancies);
             return map;
-
         }
 
         public async Task<VacancyViewDto> GetVacancyById(int vacancyId)

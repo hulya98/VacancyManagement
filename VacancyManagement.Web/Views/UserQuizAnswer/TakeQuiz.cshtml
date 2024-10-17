@@ -9,7 +9,6 @@
     <h3>Question: @currentQuestion.Question</h3>
 
     <form method="post" asp-action="SubmitAnswer">
-        @* <button type="submit" class="btn btn-primary btn-lg">Submit Answer</button> *@
         <div class="answers">
             @for (int i = 0; i < currentQuestion.QuizzAnswers.Count; i++)
             {
@@ -42,7 +41,7 @@
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                document.forms[0].submit(); // Auto-submit when time is up
+                document.forms[0].submit(); 
             }
         }, 1000);
     </script>
