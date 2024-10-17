@@ -22,6 +22,29 @@ namespace VacancyManagement.Web.Services.Implementation
 
         public async Task<string> SaveCVAsync(IFormFile cvFile)
         {
+            if (cvFile != null && cvFile.Length > 0)
+            {
+                if (cvFile.Length > 5 * 1024 * 1024) // 5 MB
+                {
+                    //ModelState.AddModelError("CV", "File size must be less than or equal to 5 MB.");
+                    return null;
+                }
+
+                // Validate file extension
+                var allowedExtensions = new[] { ".pdf", ".docx" };
+                var fileExtension = Path.GetExtension(cvFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    //ModelState.AddModelError("CV", "Only PDF, DOCX files are allowed.");
+                    return null;
+                }
+
+            }
+            else
+            {
+                return null;
+            }
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads/cvs");
             Directory.CreateDirectory(uploadsFolder);
 
@@ -55,6 +78,12 @@ namespace VacancyManagement.Web.Services.Implementation
             }
 
             request.CVName = await SaveCVAsync(request.CV);
+            if (string.IsNullOrEmpty(request.CVName))
+            {
+                result.Errors.Add("Please, Check file format or size.");
+                return result;
+            }
+
             var user = await _userAPIClient.AddUserAsync(request);
 
             if (user is null)

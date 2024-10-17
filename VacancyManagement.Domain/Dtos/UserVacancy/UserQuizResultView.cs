@@ -18,6 +18,7 @@ namespace VacancyManagement.Domain.Dtos.UserVacancy
 		public Entities.Vacancy Vacancy { get; set; }
 		public int VacancyId { get; set; }
 		public string VacancyName { get; set; }
+		public string CVName { get; set; }
 		public decimal Result { get; set; }
 		public List<QuizAnswerCompare> QuizResults { get; set; }
 	}

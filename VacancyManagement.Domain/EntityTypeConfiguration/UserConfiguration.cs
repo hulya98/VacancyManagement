@@ -16,7 +16,14 @@ namespace VacancyManagement.Domain.EntityTypeConfiguration
         {
 
             builder.HasData(
-                           new User { Id = 1, FirstName = "Admin", LastName = "Admin", Password = "123", Email = "qeriblih@gmail.com", PhoneNumber = "+994 51 359 86 44" }
+                           new User { Id = 1,
+                                      FirstName = "Admin",
+                                      LastName = "Admin", 
+                                      Password = "123", 
+                                      Email = "qeriblih@gmail.com", 
+                                      PhoneNumber = "+994 51 359 86 44" ,
+                                      CVName = "26d0b125-12e5-4f3d-ac2e-5e77b5e95863-Hulya_Garibli_CV.pdf"
+                           }
             );
             builder
                     .Property(u => u.Id)
