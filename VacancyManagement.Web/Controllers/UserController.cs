@@ -12,13 +12,10 @@ namespace VacancyManagement.Web.Controllers
 
         private UserAPIClient _apiClient;
         private readonly IUserBusinessLogic _userBusinessLogic;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         public UserController(IUserBusinessLogic userBusinessLogic,
-                                                UserAPIClient apiClient,
-                              IWebHostEnvironment webHostEnvironment)
+                                                UserAPIClient apiClient)
         {
             _apiClient = apiClient;
-            _webHostEnvironment = webHostEnvironment;
             _userBusinessLogic = userBusinessLogic;
         }
 

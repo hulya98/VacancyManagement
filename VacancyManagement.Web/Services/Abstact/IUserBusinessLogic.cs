@@ -5,7 +5,7 @@ namespace VacancyManagement.Web.Services.Abstact
     public interface IUserBusinessLogic
     {
         Task<bool> UserExistsAsync(string email, int vacancyId);
-        Task SaveCVAsync(IFormFile cvFile);
+        Task<string> SaveCVAsync(IFormFile cvFile);
 
         Task<ApiResult<int>> Apply(UserIncludeCVRequest request);
     }

@@ -9,10 +9,10 @@ using VacancyManagement.Domain.Entities;
 
 namespace VacancyManagement.DataAccess.Services.Abstract
 {
-	public interface IUserVacancyService
+    public interface IUserVacancyService
 	{
 		Task<UserVacancyViewDto> Add(UserVacancyRequest request);
-		Task<List<UserVacancyViewDto>> GetAllApplies();
+		Task<List<UserQuizResultView>> GetAllApplies();
         Task<bool> CheckUserIsExist(string email, int vacancyId);
     }
 }

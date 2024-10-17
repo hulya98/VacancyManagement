@@ -19,7 +19,7 @@ namespace VacancyManagement.Web.ApiClient
         {
             UserRequest request = new UserRequest
             {
-                CVName = $"{userRequest.FirstName} {userRequest.LastName}",
+                CVName = userRequest.CVName,
                 Email = userRequest.Email,
                 FirstName = userRequest.FirstName,
                 LastName = userRequest.LastName,

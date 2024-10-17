@@ -20,7 +20,7 @@ namespace VacancyManagement.Web.Services.Implementation
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task SaveCVAsync(IFormFile cvFile)
+        public async Task<string> SaveCVAsync(IFormFile cvFile)
         {
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads/cvs");
             Directory.CreateDirectory(uploadsFolder);
@@ -32,6 +32,7 @@ namespace VacancyManagement.Web.Services.Implementation
             {
                 await cvFile.CopyToAsync(fileStream);
             }
+            return fileName;
 
         }
 
@@ -53,6 +54,7 @@ namespace VacancyManagement.Web.Services.Implementation
                 return result;
             }
 
+            request.CVName = await SaveCVAsync(request.CV);
             var user = await _userAPIClient.AddUserAsync(request);
 
             if (user is null)

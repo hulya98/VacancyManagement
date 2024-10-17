@@ -1,31 +1,101 @@
-﻿@model List<VacancyManagement.Domain.Dtos.UserVacancy.UserVacancyViewDto>
+﻿@model List<VacancyManagement.Domain.Dtos.UserVacancy.UserQuizResultView>
 
 @{
-    ViewData["Title"] = "All Applies";
+	ViewData["Title"] = "All Applies";
 }
+<head>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+</head>
 <h2>All Applies</h2>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th hidden>Id</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>VacancyName</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var vacancy in Model)
-        {
-            <tr>
-                <td hidden>@vacancy.Id</td>
-                <td>@vacancy.FullName</td>
-                <td>@vacancy.Email</td>
-                <td>@vacancy.PhoneNumber</td>
-                <td>@vacancy.VacancyName</td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th hidden>Id</th>
+			<th>Full Name</th>
+			<th>Email</th>
+			<th>Phone Number</th>
+			<th>Vacancy Name</th>
+			<th>Quiz Results</th>
+			<th>Quiz Details</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var vacancy in Model)
+		{
+			<tr>
+				<td hidden>@vacancy.Id</td>
+				<td>@vacancy.FullName</td>
+				<td>@vacancy.Email</td>
+				<td>@vacancy.PhoneNumber</td>
+				<td>@vacancy.VacancyName</td>
+				<td>@vacancy.Result %</td>
+				<td>
+					<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#results-@vacancy.Id" aria-expanded="false" aria-controls="results-@vacancy.Id">
+						<i class="fas fa-chevron-down"></i> View Results
+					</button>
+				</td>
+			</tr>
+
+			<tr class="collapse" id="results-@vacancy.Id">
+				<td colspan="5">
+					@if (vacancy.QuizResults != null && vacancy.QuizResults.Any())
+					{
+						<div class="table-responsive mt-3">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Question</th>
+										<th>Correct Answer</th>
+										<th>User Answer</th>
+										<th>Correct</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var result in vacancy.QuizResults)
+									{
+										<tr>
+											<td>@result.Question</td>
+											<td>@result.CorrectAnswer</td>
+											<td>@result.UserAnswer</td>
+											<td>
+												@if (result.IsCorrect == 1)
+												{
+													<span class="text-success"><i class="fas fa-check-circle"></i></span>
+												}
+												else
+												{
+													<span class="text-danger"><i class="fas fa-times-circle"></i></span>
+												}
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					}
+					else
+					{
+						<p>No quiz results available.</p>
+					}
+				</td>
+			</tr>
+		}
+
+	</tbody>
 </table>
+
+@section Scripts {
+	<script>
+
+		document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
+			button.addEventListener('click', function () {
+				let icon = this.querySelector('i');
+				icon.classList.toggle('fa-chevron-down');
+				icon.classList.toggle('fa-chevron-up');
+			});
+		});
+	</script>
+}
+

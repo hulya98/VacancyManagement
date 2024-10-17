@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VacancyManagement.Domain;
 
@@ -11,9 +12,11 @@ using VacancyManagement.Domain;
 namespace VacancyManagement.Domain.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20241017120727_modify_procedure")]
+    partial class modify_procedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +31,8 @@ namespace VacancyManagement.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IsCorrect")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Question")
                         .IsRequired()

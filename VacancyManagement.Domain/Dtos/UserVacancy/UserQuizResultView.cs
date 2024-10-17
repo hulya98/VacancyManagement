@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VacancyManagement.Domain.Dtos.RawSqlDtos;
 
 namespace VacancyManagement.Domain.Dtos.UserVacancy
 {
-	public class UserVacancyViewDto
+	public class UserQuizResultView
 	{
 		public int Id { get; set; }
 		public int UserId { get; set; }
@@ -17,5 +18,7 @@ namespace VacancyManagement.Domain.Dtos.UserVacancy
 		public Entities.Vacancy Vacancy { get; set; }
 		public int VacancyId { get; set; }
 		public string VacancyName { get; set; }
+		public decimal Result { get; set; }
+		public List<QuizAnswerCompare> QuizResults { get; set; }
 	}
 }

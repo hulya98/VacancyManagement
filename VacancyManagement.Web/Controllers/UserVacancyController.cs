@@ -12,6 +12,7 @@ namespace VacancyManagement.Web.Controllers
             _apiClient = apiClient;
         }
 
+     
         [HttpGet]
         public async Task<IActionResult> GetAllApplies()
         {

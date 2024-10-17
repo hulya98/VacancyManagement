@@ -14,14 +14,14 @@ namespace VacancyManagement.Web.ApiClient
             _httpClient = httpClient;
         }
 
-        public async Task<List<UserVacancyViewDto>> GetAllAppliesAsync()
+        public async Task<List<UserQuizResultView>> GetAllAppliesAsync()
         {
             var response = await _httpClient.GetAsync("api/UserVacancy/GetAllApplies");
 
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var userVacancies = JsonSerializer.Deserialize<List<UserVacancyViewDto>>(content, new JsonSerializerOptions
+            var userVacancies = JsonSerializer.Deserialize<List<UserQuizResultView>>(content, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });

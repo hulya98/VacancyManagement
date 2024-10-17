@@ -22,7 +22,6 @@
                 <td hidden>@vacancy.Id</td>
                 <td>@vacancy.Name</td>
                 <td>
-                    <!-- Expand/Collapse Button for Requirements -->
                     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#requirements-@vacancy.Id" aria-expanded="false" aria-controls="requirements-@vacancy.Id">
                         <i class="fas fa-chevron-down"></i> View Requirements
                     </button>
@@ -58,7 +57,7 @@
 
 @section Scripts {
     <script>
-        // Optional: Toggle icon change on collapse
+        
         document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
             button.addEventListener('click', function () {
                 let icon = this.querySelector('i');

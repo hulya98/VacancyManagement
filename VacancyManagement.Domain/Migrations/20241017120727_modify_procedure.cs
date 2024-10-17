@@ -1,0 +1,64 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace VacancyManagement.Domain.Migrations
+{
+    /// <inheritdoc />
+    public partial class modify_procedure : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"
+                        ALTER PROCEDURE QuizAndUserAnswerCompare
+                            @VacancyId INT,
+                            @UserId INT
+                        AS
+                        BEGIN
+                        DECLARE @CorrectAnswers TABLE(
+                           Quiz INT,
+                           Question NVARCHAR(300),
+                           CorrectAnswer NVARCHAR(300)
+                         )
+                         
+                         DECLARE @UserAnswers TABLE(
+                           Quiz INT,
+                           Question NVARCHAR(300),
+                           UserAnswer NVARCHAR(300)
+                         )
+                         
+                         INSERT INTO @CorrectAnswers
+                         select q.Id QuizId,q.Question,
+                         qa.Title CorrectAnswer from dbo.QuizAnswers qa
+                         INNER JOIN dbo.Quizzes q
+                         ON qa.QuizId = q.Id 
+                         where IsCorrect = 1 and q.VacancyId = 1
+                         
+                         INSERT INTO @UserAnswers
+                         select q.Id QuizId,q.Question,
+                          qa.Title UserAnswer from
+                         dbo.QuizAnswers qa
+                         INNER JOIN dbo.UserQuizAnswers uqa
+                         ON uqa.UserAnswerId = qa.Id 
+                         INNER JOIN dbo.Quizzes q
+                         ON q.Id = qa.QuizId
+                         where  q.VacancyId = 1 AND uqa.UserId = 2
+                         
+                         select ca.Question,CorrectAnswer,UserAnswer,
+                            CASE 
+                                WHEN ca.CorrectAnswer = ua.UserAnswer THEN 1 
+                                ELSE 0 
+                            END AS IsCorrect from @CorrectAnswers ca
+                         INNER JOIN @UserAnswers ua
+                         ON ca.Quiz = ua.Quiz
+                        END");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.Sql(@"DROP PROCEDURE QuizAndUserAnswerCompare");
+        }
+    }
+}

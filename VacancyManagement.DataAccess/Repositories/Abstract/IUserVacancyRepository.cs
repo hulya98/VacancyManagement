@@ -10,6 +10,6 @@ namespace VacancyManagement.DataAccess.Repositories.Abstract
 {
 	public interface IUserVacancyRepository : IRepository<UserVacancy>
 	{
-		Task<List<UserVacancyViewDto>> GetAllApplies ();
+		Task<List<UserVacancy>> GetAllApplies ();
 	}
 }

@@ -17,6 +17,7 @@ namespace VacancyManagement.API.Controllers
             _userVacancyService = userVacancyService;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAllApplies()
         {

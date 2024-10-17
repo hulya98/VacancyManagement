@@ -24,21 +24,11 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
             _dbSet = context.Set<UserVacancy>();
         }
 
-        public async Task<List<UserVacancyViewDto>> GetAllApplies()
+        public async Task<List<UserVacancy>> GetAllApplies()
         {
             var allApplies = await _context.UserVacancies
                                         .Include(x => x.User)
                                         .Include(x => x.Vacancy)
-                                        .Select(x => new UserVacancyViewDto
-                                        {
-                                            Id = x.Id,
-                                            UserId = x.UserId,
-                                            FullName = x.User.FullName,
-                                            VacancyId = x.VacancyId,
-                                            VacancyName = x.Vacancy.Name,
-                                            PhoneNumber = x.User.PhoneNumber,
-                                            Email = x.User.Email
-                                        })
                                         .ToListAsync();
             return allApplies;
         }
