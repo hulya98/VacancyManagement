@@ -4,7 +4,7 @@
     ViewData["Title"] = "Vacancies List";
 }
 
-<h2>Available Vacancies</h2>
+<h2>All Vacancies</h2>
 
 <table class="table">
     <thead>
@@ -12,6 +12,7 @@
             <th hidden>Id</th>
             <th>Name</th>
             <th>Requirements</th>
+            <th>Active</th>
             <th>Edit</th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
                         <i class="fas fa-chevron-down"></i> View Requirements
                     </button>
                 </td>
+                <td>@vacancy.IsActive</td>
                 <td>
                     <form method="get" action="/Vacancy/Update">
                         <input type="hidden" name="Id" value="@vacancy.Id" />
@@ -51,13 +53,15 @@
                     </ul>
                 </td>
             </tr>
+
+
         }
     </tbody>
 </table>
 
 @section Scripts {
     <script>
-        
+
         document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
             button.addEventListener('click', function () {
                 let icon = this.querySelector('i');

@@ -28,6 +28,12 @@ namespace VacancyManagement.DataAccess.Repositories.Implementation
             return data;
         }
 
+        public async Task<List<Vacancy>> GetAllVacancies()
+        {
+            var data = await _dbSet.Include(x => x.VacancyRequirements).ToListAsync();
+            return data;
+        }
+
         public async Task<Vacancy> GetVacancyById(int id)
         {
             var data = await _dbSet.Where(x => x.Id == id).Include(x => x.VacancyRequirements).FirstOrDefaultAsync();

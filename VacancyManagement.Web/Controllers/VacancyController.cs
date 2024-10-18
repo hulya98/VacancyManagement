@@ -20,9 +20,9 @@ namespace VacancyManagement.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ActiveVacanciesForAdmin()
+        public async Task<IActionResult> AllVacancies()
         {
-            var data = await _apiClient.GetActiveVacanciesAsync();
+            var data = await _apiClient.GetAllVacanciesAsync();
             return View(data);
         }
 

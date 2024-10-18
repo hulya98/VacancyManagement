@@ -49,6 +49,13 @@ namespace VacancyManagement.DataAccess.Services.Implementation
             return map;
         }
 
+        public async Task<List<VacancyViewDto>> GetAllVacancies()
+        {
+            var vacancies = await _vacancyRepository.GetAllVacancies();
+            var map = _mapper.Map<List<VacancyViewDto>>(vacancies);
+            return map;
+        }
+
         public async Task<VacancyViewDto> GetVacancyById(int vacancyId)
         {
             var data = await _vacancyRepository.GetVacancyById(vacancyId);

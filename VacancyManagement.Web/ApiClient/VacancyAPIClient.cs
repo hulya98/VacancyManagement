@@ -27,6 +27,21 @@ namespace VacancyManagement.Web.ApiClient
             return vacancies;
         }
 
+        public async Task<List<VacancyViewDto>> GetAllVacanciesAsync()
+        {
+            var response = await _httpClient.GetAsync("api/Vacancy/GetAllVacancies");
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var vacancies = JsonSerializer.Deserialize<List<VacancyViewDto>>(content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return vacancies;
+        }
+
         public async Task<VacancyViewDto> AddVacancy(VacancyRequest request)
         {
             request.IsActive = true;

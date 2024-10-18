@@ -24,6 +24,11 @@ namespace VacancyManagement.API.Controllers
             return Ok(await _vacancyService.GetActiveVacancies());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllVacancies()
+        {
+            return Ok(await _vacancyService.GetAllVacancies());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(VacancyRequest request)

@@ -11,6 +11,7 @@ namespace VacancyManagement.DataAccess.Repositories.Abstract
     public interface IVacancyRepository : IRepository<Vacancy>
     {
         Task<List<Vacancy>> GetActiveVacancies();
+        Task<List<Vacancy>> GetAllVacancies();
         Task<Vacancy> GetVacancyById(int id);
     }
 }
