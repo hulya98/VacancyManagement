@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using VacancyManagement.Domain.Dtos.User;
 using VacancyManagement.Domain.Entities;
 using VacancyManagement.Web.ApiClient;
@@ -45,8 +46,8 @@ namespace VacancyManagement.Web.Controllers
                 foreach (var error in response.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error);
+                    throw new Exception(error);
                 }
-                return View(response.ViewName ?? "Apply");
             }
 
             return RedirectToAction("TakeQuiz", "UserQuizAnswer", new { vacationId = request.VacancyId, userId = response.Data });

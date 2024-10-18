@@ -50,15 +50,14 @@ namespace VacancyManagement.Domain
 
             modelBuilder.ApplyConfiguration(new QuizConfiguration());
             modelBuilder.ApplyConfiguration(new QuizAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new QuizAnswerCompareConfiguration());
 
-            modelBuilder.Entity<QuizAnswerCompare>().HasNoKey();
             base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement2;Trusted_connection=true;TrustServerCertificate=True;";
-            //var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;User Id=sa;Password=Salamsalam1!;TrustServerCertificate=True;";
+            var migrationsConnectionString = @"Server=localhost;Database=VacancyManagement;Trusted_connection=true;TrustServerCertificate=True;";
 
             optionsBuilder.UseSqlServer(migrationsConnectionString);
 
