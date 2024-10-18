@@ -14,4 +14,4 @@ Active Vacancies (Guest): Namizədlər aktiv vakansiyalara baxıb müraciət ed�
 
 Əlavə qeyd:
 - Adminin və İstifadəçinin görməli olduğu menyular ayrı olmalıdır admin panel şəklində;
-- bəzi validasiyalar, error mesajlarının error page-də görünməsi kimi bəzi detallar vaxt məhdudiyyətinə görə əlavə edilə bilmədi.
+- bəzi validasiyalar, imtahan suallarının admin tərəfindən idarəsi, error mesajlarının error page-də görünməsi kimi bəzi detallar vaxt məhdudiyyətinə görə əlavə edilə bilmədi.
